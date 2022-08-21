@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+    test_postgres:
+        build:
+            dockerfile: ./Dockerfile
+            context: ./postgres
+        ports:
+            - 5433:5432
+    test_web:
+        build:
+            dockerfile: ./dockerfile.test
+            context: ./
+        depends_on:
+            - test_postgres
+        environment:
+            RATESTASK_TESTING: "True"
